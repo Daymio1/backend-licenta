@@ -1,10 +1,30 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { Module } from "@nestjs/common";
+import { MongooseModule } from "@nestjs/mongoose";
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
+import * as dotenv from "dotenv";
+import { Medication, MedicationsModel } from "./medications/data_layer/medications.model";
+import { MedicationsController } from "./medications/medications.controler";
+import { MedicationsService } from "./medications/medications.service";
+import { MedicationsRepository } from "./medications/data_layer/medications.repository";
+import { MedicationsModule } from "./medications/medications.module";
+dotenv.config();
 
 @Module({
-  imports: [],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    MedicationsModule,
+    MongooseModule.forRoot("mongodb+srv://AlexandruM:bomboane@cluster0.qqvqb.mongodb.net/test"),
+    MongooseModule.forFeature([{ name: Medication.name, schema: MedicationsModel }]),
+  ],
+  controllers: [AppController, MedicationsController],
+  providers: [
+    AppService,
+    MedicationsService,
+    MedicationsRepository,
+    {
+      provide: "MedicationsServiceInterface",
+      useClass: MedicationsService,
+    },
+  ],
 })
 export class AppModule {}
