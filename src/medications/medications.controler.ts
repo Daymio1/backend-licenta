@@ -1,4 +1,5 @@
-import { Body, Controller, Delete, Get, HttpStatus, Inject, Param, Patch, Post, Query, Res } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Inject, Param, Patch, Post, Query, Res, UseGuards } from "@nestjs/common";
+import { AuthGuard } from "@nestjs/passport";
 import { ApiTags } from "@nestjs/swagger";
 import { Response } from "express";
 import { FilterQuery, ObjectId } from "mongoose";
@@ -10,6 +11,7 @@ import { MedicationsServiceInterface } from "./interfaces/medications.service.in
 export class MedicationsController {
   constructor(@Inject("MedicationsServiceInterface") private readonly medicationsService: MedicationsServiceInterface) {}
 
+  @UseGuards(AuthGuard("jwt"))
   @Post("/create")
   async createMedication(@Res() res: Response, @Body() medicationDto: MedicationDto) {
     const medication = await this.medicationsService.createMedication(medicationDto);
@@ -19,6 +21,7 @@ export class MedicationsController {
     });
   }
 
+  @UseGuards(AuthGuard("jwt"))
   @Get("/all")
   async getAllMedications(@Res() res: Response, @Query() medicationsFilterQuery: FilterQuery<MedicationDto>) {
     const medications = await this.medicationsService.getAllMedications(medicationsFilterQuery);
@@ -28,6 +31,7 @@ export class MedicationsController {
     return res.status(HttpStatus.OK).json(medications);
   }
 
+  @UseGuards(AuthGuard("jwt"))
   @Patch("/edit/:medicationId")
   async updateMedicationById(@Res() res: Response, @Param("medicationId") medicationId: ObjectId, @Body() medicationDto: Partial<MedicationDto>) {
     const medication = await this.medicationsService.updateMedicationById(medicationId, medicationDto);
@@ -36,7 +40,7 @@ export class MedicationsController {
       medication,
     });
   }
-
+  @UseGuards(AuthGuard("jwt"))
   @Delete("/delete/:medicationId")
   async deleteMedicationById(@Res() res: Response, @Param("medicationId") medicationId: ObjectId) {
     const medication = await this.medicationsService.deleteMedicationById(medicationId);
