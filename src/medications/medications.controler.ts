@@ -32,9 +32,22 @@ export class MedicationsController {
   }
 
   @UseGuards(AuthGuard("jwt"))
+  @Get("/:medicationId")
+  async getMedicationById(@Res() res: Response, @Param("medicationId") medicationId: string) {
+    const medication = await this.medicationsService.getMedicationById(medicationId);
+    if (!medication) {
+      return res.status(HttpStatus.NOT_FOUND).json({ message: "No medication found" });
+    }
+    return res.status(HttpStatus.OK).json(medication);
+  }
+
+  @UseGuards(AuthGuard("jwt"))
   @Patch("/edit/:medicationId")
   async updateMedicationById(@Res() res: Response, @Param("medicationId") medicationId: ObjectId, @Body() medicationDto: Partial<MedicationDto>) {
     const medication = await this.medicationsService.updateMedicationById(medicationId, medicationDto);
+    if (!medication) {
+      return res.status(HttpStatus.NOT_FOUND).json({ message: "No medication found" });
+    }
     return res.status(HttpStatus.OK).json({
       message: "Medication successfully updated",
       medication,

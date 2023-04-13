@@ -17,6 +17,10 @@ export class MedicationsService implements MedicationsServiceInterface {
     return this.medicationsRepository.find(medicationsFilterQuery);
   }
 
+  async getMedicationById(medicationId: string): Promise<Medication | null> {
+    return this.medicationsRepository.findById(medicationId);
+  }
+
   async updateMedicationById(medicationsId: ObjectId, medication: Partial<Medication>): Promise<Medication | null> {
     return this.medicationsRepository.findByIdAndUpdate(medicationsId, medication);
   }

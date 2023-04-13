@@ -16,6 +16,10 @@ export class MedicationsRepository {
     return this.medicationsModel.find(medicationsFilterQuery);
   }
 
+  async findById(medicationId: string): Promise<Medication | null> {
+    return this.medicationsModel.findById({ _id: medicationId });
+  }
+
   async findByIdAndUpdate(medicationsId: ObjectId, medication: Partial<Medication>): Promise<Medication | null> {
     return this.medicationsModel.findByIdAndUpdate({ _id: medicationsId }, medication, { new: true });
   }

@@ -5,6 +5,7 @@ import { MedicationDto } from "../dto/medication.dto";
 export interface MedicationsServiceInterface {
   createMedication(medicationDto: MedicationDto): Promise<Medication>;
   getAllMedications(medicationsFilterQuery: FilterQuery<MedicationDto>): Promise<Medication[]>;
+  getMedicationById(medicationId: string): Promise<Medication | null>;
   updateMedicationById(medicationsId: ObjectId, medication: Partial<Medication>): Promise<Medication | null>;
   deleteMedicationById(medicationsId: ObjectId): Promise<Medication | null>;
 }
