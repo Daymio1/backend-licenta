@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "env": {
     "MONGO_URL": "mongodb+srv://AlexandruM:<Bomboane1!>@cluster0.qqvqb.mongodb.net/?retryWrites=true&w=majority",
     "AUTH0_ISSUER_URL": "https://dev-hwqqa425lbtvchq1.us.auth0.com/",
