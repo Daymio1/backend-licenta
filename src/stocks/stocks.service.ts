@@ -10,14 +10,14 @@ import { StocksServiceInterface } from "./interfaces/stocks.service.interface";
 export class StocksService implements StocksServiceInterface {
   constructor(private readonly stocksRepository: StocksRepository, private readonly medicationsRepository: MedicationsRepository) {}
 
-  async isValidDate(expirationDate: Date) {
+  async isValidDatePipe(expirationDate: Date) {
     if (new Date() >= new Date(expirationDate)) {
       throw new Error("Invalid date input!");
     }
   }
 
   async createStock(stockDto: StockDto): Promise<Stock> {
-    this.isValidDate(stockDto.expirationDate);
+    this.isValidDatePipe(stockDto.expirationDate);
     const medication = await this.medicationsRepository.findById(stockDto.medicationId);
     if (!medication) {
       throw new Error("Medication not available in data base.");

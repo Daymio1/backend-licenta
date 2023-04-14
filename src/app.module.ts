@@ -14,6 +14,7 @@ import { StocksModule } from "./stocks/stocks.module";
 import { Stock, StocksModel } from "./stocks/data_layer/stocks.model";
 import { StocksController } from "./stocks/stocks.controller";
 import { StocksRepository } from "./stocks/data_layer/stocks.repository";
+import { OrdersModule } from "./orders/orders.module";
 dotenv.config();
 
 @Module({
@@ -24,6 +25,7 @@ dotenv.config();
     MongooseModule.forFeature([{ name: Medication.name, schema: MedicationsModel }]),
     MongooseModule.forFeature([{ name: Stock.name, schema: StocksModel }]),
     AuthorizationModule,
+    OrdersModule,
   ],
   controllers: [AppController, MedicationsController, StocksController],
   providers: [
