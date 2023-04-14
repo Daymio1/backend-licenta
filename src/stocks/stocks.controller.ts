@@ -21,11 +21,11 @@ export class StocksController {
   @UseGuards(AuthGuard("jwt"))
   @Get("/all")
   async getAllStocks(@Res() res: Response, @Body() stocksFilterQuery: FilterQuery<StockDto>) {
-    const stock = await this.stocksService.getAllStocks(stocksFilterQuery);
-    if (!stock) {
+    const stocks = await this.stocksService.getAllStocks(stocksFilterQuery);
+    if (!stocks) {
       return res.status(HttpStatus.NOT_FOUND).json({ message: "No stocks found" });
     }
-    return res.status(HttpStatus.OK).json(stock);
+    return res.status(HttpStatus.OK).json(stocks);
   }
 
   @UseGuards(AuthGuard("jwt"))
