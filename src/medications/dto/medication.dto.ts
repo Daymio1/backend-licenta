@@ -1,4 +1,5 @@
-import { IsNotEmpty, IsBoolean, IsNumber, IsString } from "class-validator";
+import { IsNotEmpty, IsBoolean, IsNumber, IsString, IsEnum } from "class-validator";
+import { MedicationType } from "../interfaces/medications.model.interface";
 
 export class MedicationDto {
   @IsNotEmpty()
@@ -14,18 +15,18 @@ export class MedicationDto {
   manufacturer: string;
 
   @IsNotEmpty()
-  @IsString()
-  dosageForm: string;
+  @IsEnum(MedicationType, { message: "Type unknown." })
+  type: MedicationType = MedicationType.OTC;
 
   @IsNotEmpty()
   @IsString()
   concentraction: string;
 
   @IsNotEmpty()
-  @IsBoolean()
-  requirePrescription: boolean;
+  @IsString()
+  lot: string;
 
   @IsNotEmpty()
   @IsString()
-  lot: string;
+  CIM: string;
 }

@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { HydratedDocument } from "mongoose";
+import { MedicationType } from "../interfaces/medications.model.interface";
 
 export type MedicationDocument = HydratedDocument<Medication>;
 
@@ -15,16 +16,16 @@ export class Medication {
   manufacturer: string;
 
   @Prop()
-  dosageForm: string;
+  type: MedicationType;
 
   @Prop()
   concentraction: string;
 
   @Prop()
-  requirePrescription: boolean;
+  lot: string;
 
   @Prop()
-  lot: string;
+  CIM: string;
 }
 
 export const MedicationsModel = SchemaFactory.createForClass(Medication);
