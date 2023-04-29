@@ -19,7 +19,7 @@ export class Medication {
   type: MedicationType;
 
   @Prop()
-  concentraction: string;
+  concentration: string;
 
   @Prop()
   lot: string;

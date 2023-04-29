@@ -20,7 +20,7 @@ export class MedicationDto {
 
   @IsNotEmpty()
   @IsString()
-  concentraction: string;
+  concentration: string;
 
   @IsNotEmpty()
   @IsString()
