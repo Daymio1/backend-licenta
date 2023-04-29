@@ -13,7 +13,22 @@ export class MedicationsRepository {
   }
 
   async find(medicationsFilterQuery: FilterQuery<Medication>): Promise<Medication[]> {
-    return this.medicationsModel.find(medicationsFilterQuery);
+    console.log(medicationsFilterQuery.s);
+    const searchOption = medicationsFilterQuery.s && {
+      $or: [
+        {
+          name: new RegExp(medicationsFilterQuery.s.toString(), "i"),
+        },
+      ],
+    };
+
+    const field = medicationsFilterQuery.field && medicationsFilterQuery.field.toString();
+    const sort = medicationsFilterQuery.sort && medicationsFilterQuery.sort.toString();
+    const sortOption = { [field]: sort };
+
+    console.log(sortOption);
+    console.log(searchOption);
+    return this.medicationsModel.find(searchOption).sort(sortOption);
   }
 
   async findById(medicationId: string): Promise<Medication | null> {
