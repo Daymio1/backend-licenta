@@ -30,7 +30,7 @@ export class StocksRepository {
     const meds = await this.medicationModel.find(searchOption).sort(sortOption);
 
     const sortedStocks: Stock[] = [];
-    stockFilterQuery.sort &&
+    stockFilterQuery.field === "name" &&
       meds.map(med =>
         allStocks.map(stock => {
           if (stock.medicationId === med._id.toString()) sortedStocks.push(stock);
