@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpStatus, Inject, Param, Patch, Post, Res, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Inject, Param, Patch, Post, Res, UseGuards, Query } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { AuthGuard } from "@nestjs/passport";
 import { Response } from "express";
@@ -20,7 +20,7 @@ export class StocksController {
 
   @UseGuards(AuthGuard("jwt"))
   @Get("/all")
-  async getAllStocks(@Res() res: Response, @Body() stocksFilterQuery: FilterQuery<StockDto>) {
+  async getAllStocks(@Res() res: Response, @Query() stocksFilterQuery: FilterQuery<StockDto>) {
     const stocks = await this.stocksService.getAllStocks(stocksFilterQuery);
     if (!stocks) {
       return res.status(HttpStatus.NOT_FOUND).json({ message: "No stocks found" });

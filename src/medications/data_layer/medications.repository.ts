@@ -13,7 +13,6 @@ export class MedicationsRepository {
   }
 
   async find(medicationsFilterQuery: FilterQuery<Medication>): Promise<Medication[]> {
-    console.log(medicationsFilterQuery.s);
     const searchOption = medicationsFilterQuery.s && {
       $or: [
         {
@@ -26,7 +25,6 @@ export class MedicationsRepository {
     const sort = medicationsFilterQuery.sort && medicationsFilterQuery.sort.toString();
     const sortOption = { [field]: sort };
 
-    console.log(sortOption);
     console.log(searchOption);
     return this.medicationsModel.find(searchOption).sort(sortOption);
   }
