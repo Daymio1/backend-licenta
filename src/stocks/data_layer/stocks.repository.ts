@@ -44,7 +44,7 @@ export class StocksRepository {
       }),
     );
 
-    return stockFilterQuery.s ? filteredStocks : stockFilterQuery.sort ? sortedStocks : this.stocksModel.find().sort(sortOption);
+    return stockFilterQuery.s ? filteredStocks : stockFilterQuery.sort && stockFilterQuery.field === "name" ? sortedStocks : this.stocksModel.find().sort(sortOption);
   }
 
   async findById(stockId: string): Promise<Stock | null> {
