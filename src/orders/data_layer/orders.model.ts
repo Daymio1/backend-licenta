@@ -17,6 +17,9 @@ export class Order {
 
   @Prop()
   status: OrderStatus;
+
+  @Prop()
+  createdAt: Date;
 }
 
 export const OrdersModel = SchemaFactory.createForClass(Order);

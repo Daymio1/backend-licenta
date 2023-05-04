@@ -1,4 +1,4 @@
-import { IsArray, IsEnum, IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsDateString, IsEnum, IsNotEmpty, IsString } from "class-validator";
 import { MedicationPrescribed, OrderStatus } from "../interface/orders.model.interface";
 
 export class OrderDto {
@@ -17,4 +17,8 @@ export class OrderDto {
   @IsNotEmpty()
   @IsEnum(OrderStatus, { message: "Status unknown." })
   status: OrderStatus = OrderStatus.PENDING;
+
+  @IsNotEmpty()
+  @IsDateString()
+  createdAt: Date;
 }
