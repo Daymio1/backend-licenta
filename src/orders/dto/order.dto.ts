@@ -20,5 +20,5 @@ export class OrderDto {
 
   @IsNotEmpty()
   @IsDateString()
-  createdAt: Date;
+  createdAt: Date = new Date();
 }
