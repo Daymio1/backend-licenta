@@ -1,4 +1,4 @@
-import { IsArray, IsDateString, IsEnum, IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsDate, IsEnum, IsNotEmpty, IsString } from "class-validator";
 import { MedicationPrescribed, OrderStatus } from "../interface/orders.model.interface";
 
 export class OrderDto {
@@ -19,6 +19,6 @@ export class OrderDto {
   status: OrderStatus = OrderStatus.PENDING;
 
   @IsNotEmpty()
-  @IsDateString()
+  @IsDate()
   createdAt: Date = new Date();
 }
