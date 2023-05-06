@@ -20,6 +20,9 @@ export class Order {
 
   @Prop()
   createdAt: Date;
+
+  @Prop()
+  totalPrice: number;
 }
 
 export const OrdersModel = SchemaFactory.createForClass(Order);

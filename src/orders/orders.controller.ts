@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpStatus, Inject, Param, Patch, Post, Res, UseGuards } from "@nestjs/common";
+import { Body, Controller, Delete, Get, HttpStatus, Inject, Param, Patch, Post, Query, Res, UseGuards } from "@nestjs/common";
 import { AuthGuard } from "@nestjs/passport";
 import { Response } from "express";
 import { ApiTags } from "@nestjs/swagger";
@@ -20,7 +20,7 @@ export class OrdersController {
 
   @UseGuards(AuthGuard("jwt"))
   @Get("/all")
-  async getAllOrders(@Res() res: Response, @Body() ordersFilterQuery: FilterQuery<OrderDto>) {
+  async getAllOrders(@Res() res: Response, @Query() ordersFilterQuery: FilterQuery<OrderDto>) {
     const orders = await this.ordersService.getAllOrders(ordersFilterQuery);
     if (!orders) {
       return res.status(HttpStatus.NOT_FOUND).json({ message: "No orders found" });

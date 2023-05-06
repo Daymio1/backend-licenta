@@ -1,4 +1,4 @@
-import { IsArray, IsDate, IsEnum, IsNotEmpty, IsString } from "class-validator";
+import { IsArray, IsDate, IsEnum, IsNotEmpty, IsNumber, IsString } from "class-validator";
 import { MedicationPrescribed, OrderStatus } from "../interface/orders.model.interface";
 
 export class OrderDto {
@@ -20,4 +20,8 @@ export class OrderDto {
   @IsNotEmpty()
   @IsDate()
   createdAt: Date = new Date();
+
+  @IsNotEmpty()
+  @IsNumber()
+  totalPrice: number;
 }
