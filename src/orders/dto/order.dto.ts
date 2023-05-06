@@ -10,7 +10,6 @@ export class OrderDto {
   @IsArray()
   medicationPrescribed: MedicationPrescribed[];
 
-  @IsNotEmpty()
   @IsString()
   medicalPrescription: string;
 
