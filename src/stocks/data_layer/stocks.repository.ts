@@ -32,16 +32,18 @@ export class StocksRepository {
     const notExpiredStocks = allStocks.filter(stock => stock.expirationDate > new Date());
     const expiredStocks = allStocks.filter(stock => stock.expirationDate <= new Date());
 
+    const goodStocks = stockFilterQuery.expired === "true" ? expiredStocks : notExpiredStocks;
+
     const sortedStocks: Stock[] = [];
     stockFilterQuery.field === "name" &&
       meds.map(med =>
-        notExpiredStocks.map(stock => {
+        goodStocks.map(stock => {
           if (stock.medicationId === med._id.toString()) sortedStocks.push(stock);
         }),
       );
     const filteredStocks: Stock[] = [];
     meds.map(med =>
-      notExpiredStocks.map(stock => {
+      goodStocks.map(stock => {
         if (stock.medicationId === med._id.toString()) filteredStocks.push(stock);
       }),
     );
@@ -51,9 +53,9 @@ export class StocksRepository {
       : stockFilterQuery.sort && stockFilterQuery.field === "name"
       ? sortedStocks
       : stockFilterQuery.expired === "false"
-      ? expiredStocks
-      : stockFilterQuery.expired === "true"
       ? notExpiredStocks
+      : stockFilterQuery.expired === "true"
+      ? expiredStocks
       : this.stocksModel.find().sort(sortOption);
   }
 
