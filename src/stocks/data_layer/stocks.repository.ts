@@ -29,8 +29,8 @@ export class StocksRepository {
     const allStocks = await this.stocksModel.find();
     const meds = await this.medicationModel.find(searchOption).sort(sortOption);
 
-    const expiredStocks = allStocks.filter(stock => stock.expirationDate >= new Date());
-    const notExpiredStocks = allStocks.filter(stock => stock.expirationDate < new Date());
+    const notExpiredStocks = allStocks.filter(stock => stock.expirationDate > new Date());
+    const expiredStocks = allStocks.filter(stock => stock.expirationDate <= new Date());
 
     const sortedStocks: Stock[] = [];
     stockFilterQuery.field === "name" &&
