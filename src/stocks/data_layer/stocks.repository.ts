@@ -29,6 +29,9 @@ export class StocksRepository {
     const allStocks = await this.stocksModel.find();
     const meds = await this.medicationModel.find(searchOption).sort(sortOption);
 
+    const expiredStocks = allStocks.filter(stock => stock.expirationDate >= new Date());
+    const notExpiredStocks = allStocks.filter(stock => stock.expirationDate < new Date());
+
     const sortedStocks: Stock[] = [];
     stockFilterQuery.field === "name" &&
       meds.map(med =>
@@ -36,7 +39,6 @@ export class StocksRepository {
           if (stock.medicationId === med._id.toString()) sortedStocks.push(stock);
         }),
       );
-    console.log(sortedStocks);
     const filteredStocks: Stock[] = [];
     meds.map(med =>
       allStocks.map(stock => {
@@ -44,7 +46,15 @@ export class StocksRepository {
       }),
     );
 
-    return stockFilterQuery.s ? filteredStocks : stockFilterQuery.sort && stockFilterQuery.field === "name" ? sortedStocks : this.stocksModel.find().sort(sortOption);
+    return stockFilterQuery.s
+      ? filteredStocks
+      : stockFilterQuery.sort && stockFilterQuery.field === "name"
+      ? sortedStocks
+      : stockFilterQuery.expired === "false"
+      ? expiredStocks
+      : stockFilterQuery.expired === "true"
+      ? notExpiredStocks
+      : this.stocksModel.find().sort(sortOption);
   }
 
   async findById(stockId: string): Promise<Stock | null> {
