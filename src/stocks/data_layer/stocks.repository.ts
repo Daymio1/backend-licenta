@@ -35,13 +35,13 @@ export class StocksRepository {
     const sortedStocks: Stock[] = [];
     stockFilterQuery.field === "name" &&
       meds.map(med =>
-        allStocks.map(stock => {
+        notExpiredStocks.map(stock => {
           if (stock.medicationId === med._id.toString()) sortedStocks.push(stock);
         }),
       );
     const filteredStocks: Stock[] = [];
     meds.map(med =>
-      allStocks.map(stock => {
+      notExpiredStocks.map(stock => {
         if (stock.medicationId === med._id.toString()) filteredStocks.push(stock);
       }),
     );
