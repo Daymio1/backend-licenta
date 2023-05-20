@@ -4,5 +4,4 @@ export enum MedicationType {
   PRF = "PRF", // cu prescriptie ce se retine la farmacie
   PR = "PR",
   P6L = "P6L",
-  SA = "SA", // supliment alimentar
 }

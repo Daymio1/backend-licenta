@@ -24,9 +24,5 @@ export class MedicationDto {
 
   @IsNotEmpty()
   @IsString()
-  lot: string;
-
-  @IsNotEmpty()
-  @IsString()
   CIM: string;
 }

@@ -22,9 +22,6 @@ export class Medication {
   concentration: string;
 
   @Prop()
-  lot: string;
-
-  @Prop()
   CIM: string;
 }
 
