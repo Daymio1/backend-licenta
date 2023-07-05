@@ -25,7 +25,6 @@ export class MedicationsRepository {
     const sort = medicationsFilterQuery.sort && medicationsFilterQuery.sort.toString();
     const sortOption = { [field]: sort };
 
-    console.log(searchOption);
     return this.medicationsModel.find(searchOption).sort(sortOption);
   }
 
